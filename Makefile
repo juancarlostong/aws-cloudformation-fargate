@@ -9,8 +9,8 @@ CFTSERVICE=service-stacks/public-subnet-public-loadbalancer.yml
 
 create-cluster:
 	aws cloudformation create-stack --stack-name ${StackName} \
-                --template-body file://${CFTBASE} \
-                --capabilities CAPABILITY_IAM
+                                  --template-body file://${CFTBASE} \
+                                  --capabilities CAPABILITY_IAM
 	aws cloudformation wait stack-create-complete --stack-name  ${StackName}
 
 create-service:
@@ -31,4 +31,3 @@ delete-service:
 
 get-url:
 	aws cloudformation describe-stacks --stack-name ${StackName} --query 'Stacks[].Outputs[?OutputKey==`ExternalUrl`].OutputValue' --output text
-
