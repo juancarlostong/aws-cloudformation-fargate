@@ -5,8 +5,8 @@ StackName=test-fargate
 StackNameService=${StackName}-service
 AWS_REGION ?= us-west-1
 
-CFTBASE=fargate-networking-stacks/public-private-vpc.yml
-CFTSERVICE=service-stacks/private-subnet-public-loadbalancer.yml
+CFTBASE=fargate-networking-stacks/https-public-vpc.yml
+CFTSERVICE=service-stacks/https-public-subnet-public-loadbalancer.yml
 
 create-cluster:
 	aws --region=$(AWS_REGION) cloudformation create-stack --stack-name ${StackName} \
@@ -21,6 +21,12 @@ create-service:
                 --parameters ParameterKey=StackName,ParameterValue=${StackName} \
                 --capabilities CAPABILITY_IAM
 	aws --region=$(AWS_REGION) cloudformation wait stack-create-complete --stack-name ${StackNameService}
+
+update-cluster:
+	aws --region=$(AWS_REGION) cloudformation update-stack --stack-name ${StackName} \
+                                  --template-body file://${CFTBASE} \
+                                  --capabilities CAPABILITY_IAM
+	aws --region=$(AWS_REGION) cloudformation wait stack-update-complete --stack-name ${StackName}
 
 update-service:
 	aws --region=$(AWS_REGION) cloudformation update-stack \
