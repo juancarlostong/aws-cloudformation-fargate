@@ -1,0 +1,1 @@
+[<img src="https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png">](https://console.aws.amazon.com/cloudformation/home?region=us-west-1#/stacks/new?stackName=test-fargate&templateURL=https://optimizely-agent-cf-template.s3-us-west-1.amazonaws.com/public/https-public-vpc.yml)
