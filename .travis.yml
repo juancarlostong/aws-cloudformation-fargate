@@ -1,0 +1,18 @@
+language: minimal
+os: linux
+
+script:
+  - mkdir upload
+  - cp fargate-networking-stacks/https-public-vpc.yml upload/
+  - cp service-stacks/https-public-subnet-public-loadbalancer.yml upload/
+
+deploy:
+  on:
+    branch: optimizely_agent
+  provider: s3
+  region: us-west-1
+  bucket: optimizely-agent-cf-template
+  upload-dir: public
+  skip_cleanup: true
+  acl: public_read
+  local_dir: upload
